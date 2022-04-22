@@ -1,111 +1,106 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React from 'react';
-import type {Node} from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
   View,
+  Text,
+  TextInput,
+  StyleSheet,
+  TouchableOpacity,
+  FlatList,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+/*
+1) Textbox for the Podcast URL
+2) Button to get the pod casts
+3) List to show the pod casts
+4) Click to see info of pod cast
+5) Play a pod cast
+*/
 
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
+const Item = ({title}) => (
+  <View style={styles.item}>
+    <Text style={styles.title}>{title}</Text>
+  </View>
+);
 
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
+function App() {
+  const [urlText, onChangeUrlText] = React.useState('');
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  const handleSubmit = () => {
+    console.log('pressed the submit button - url:', urlText);
   };
 
+  const DATA = [
+    {
+      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+      title: 'First pod cast',
+    },
+    {
+      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+      title: 'Second pod cast',
+    },
+    {
+      id: '58694a0f-3da1-471f-bd96-145571e29d72',
+      title: 'Third pod cast',
+    },
+  ];
+
+  const renderItem = ({item}) => <Item title={item.title} />;
+
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <View
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        marginHorizontal: 10,
+      }}>
+      <View style={styles.mb10}>
+        <Text>Podcast URL:</Text>
+        <TextInput
+          style={styles.textInput}
+          onChangeText={onChangeUrlText}
+          value={urlText}
+        />
+      </View>
+
+      <View style={styles.mb10}>
+        <TouchableOpacity onPress={handleSubmit}>
+          <View
+            style={{
+              backgroundColor: 'aquamarine',
+              width: '100%',
+              borderRadius: 5,
+              alignItems: 'center',
+              padding: 10,
+            }}>
+            <Text>Get Podcast</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.mb10}>
+        <FlatList
+          data={DATA}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+        />
+      </View>
+    </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  mb10: {
+    marginBottom: 10,
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  border: {
+    borderColor: 'red',
+    borderWidth: 3,
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
+  textInput: {
+    width: '100%',
+    borderColor: 'black',
+    borderWidth: 1,
+    height: 28,
   },
 });
 
