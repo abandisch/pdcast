@@ -1,13 +1,7 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  TouchableOpacity,
-  FlatList,
-} from 'react-native';
+import {View, Text, StyleSheet, FlatList} from 'react-native';
 import {useDispatch} from 'react-redux';
+import Searchbar from './Searchbar';
 import {increment} from '../lib/store/features/counter/counterSlice';
 
 /*
@@ -30,14 +24,6 @@ const Item = ({title}: {title: string}) => (
 );
 
 function App() {
-  const [urlText, onChangeUrlText] = React.useState('');
-  const dispatch = useDispatch();
-
-  const handleSubmit = () => {
-    console.log('pressed the submit button - url:', urlText);
-    dispatch(increment());
-  };
-
   const DATA: ItemIFace[] = [
     {
       id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
@@ -62,29 +48,7 @@ function App() {
         justifyContent: 'center',
         marginHorizontal: 10,
       }}>
-      <View style={styles.mb10}>
-        <Text>Podcast URL:</Text>
-        <TextInput
-          style={styles.textInput}
-          onChangeText={onChangeUrlText}
-          value={urlText}
-        />
-      </View>
-
-      <View style={styles.mb10}>
-        <TouchableOpacity onPress={handleSubmit}>
-          <View
-            style={{
-              backgroundColor: 'aquamarine',
-              width: '100%',
-              borderRadius: 5,
-              alignItems: 'center',
-              padding: 10,
-            }}>
-            <Text>Get Podcast</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
+      <Searchbar />
 
       <View style={styles.mb10}>
         <FlatList
