@@ -16,9 +16,14 @@ import {
 5) Play a pod cast
 */
 
-const Item = ({title}) => (
-  <View style={styles.item}>
-    <Text style={styles.title}>{title}</Text>
+interface ItemIFace {
+  id: string;
+  title: string;
+}
+
+const Item = ({title}: {title: string}) => (
+  <View>
+    <Text>{title}</Text>
   </View>
 );
 
@@ -29,7 +34,7 @@ function App() {
     console.log('pressed the submit button - url:', urlText);
   };
 
-  const DATA = [
+  const DATA: ItemIFace[] = [
     {
       id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
       title: 'First pod cast',
@@ -44,7 +49,7 @@ function App() {
     },
   ];
 
-  const renderItem = ({item}) => <Item title={item.title} />;
+  const renderItem = ({item}: {item: ItemIFace}) => <Item title={item.title} />;
 
   return (
     <View
