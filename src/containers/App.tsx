@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   FlatList,
 } from 'react-native';
+import {useDispatch} from 'react-redux';
+import {increment} from '../lib/store/features/counter/counterSlice';
 
 /*
 1) Textbox for the Podcast URL
@@ -29,9 +31,11 @@ const Item = ({title}: {title: string}) => (
 
 function App() {
   const [urlText, onChangeUrlText] = React.useState('');
+  const dispatch = useDispatch();
 
   const handleSubmit = () => {
     console.log('pressed the submit button - url:', urlText);
+    dispatch(increment());
   };
 
   const DATA: ItemIFace[] = [
