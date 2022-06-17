@@ -1,10 +1,11 @@
 import {configureStore} from '@reduxjs/toolkit';
 import logger from 'redux-logger';
-import counterReducer from './features/counter/counterSlice';
+import podcastReducer from './features/podcasts';
+// import counterReducer from './features/counter/counterSlice';
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    podcasts: podcastReducer,
   },
   middleware: getDefaultMiddleware => {
     if (process.env.NODE_ENV === 'development') {
