@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
+import {useAppDispatch} from '../hooks';
+import {fetchPodcast} from '../lib/store/features/podcasts';
 
 const styles = StyleSheet.create({
   mb10: {
@@ -24,10 +26,12 @@ const styles = StyleSheet.create({
 });
 
 function Searchbar() {
+  const dispatch = useAppDispatch();
   const [urlText, onChangeUrlText] = React.useState('');
 
   const handleSubmit = () => {
     console.log('pressed the submit button - url:', urlText);
+    dispatch(fetchPodcast(urlText));
   };
 
   return (

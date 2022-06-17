@@ -1,8 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet, FlatList} from 'react-native';
-import {useDispatch} from 'react-redux';
 import Searchbar from './Searchbar';
-import {increment} from '../lib/store/features/counter/counterSlice';
 
 /*
 1) Textbox for the Podcast URL
