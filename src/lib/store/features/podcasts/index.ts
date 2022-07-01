@@ -1,9 +1,10 @@
-import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
-import {MOCK_PODCAST} from '../../../api/mockdata';
+import {createSlice, createAsyncThunk, createSelector} from '@reduxjs/toolkit';
 import {getPodcast} from '../../../api/index';
+import {RootState} from '../../configureStore';
+import {Podcast} from '../../../types/podcast';
 
 export interface PodcastsState {
-  current: typeof MOCK_PODCAST | null;
+  current: Podcast | null;
   api: {
     status: 'idle' | 'loading' | 'error';
     error: string | null;
@@ -34,6 +35,7 @@ export const podcastsSlice = createSlice({
     builder.addCase(fetchPodcast.pending, state => {
       state.api.status = 'loading';
       state.api.error = null;
+      state.current = null;
     });
     builder.addCase(fetchPodcast.fulfilled, (state, action) => {
       state.api.status = 'idle';
@@ -49,5 +51,12 @@ export const podcastsSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 // export const {} = podcastsSlice.actions;
+
+// Selectors
+const selector = (state: RootState) => state.podcasts;
+export const selectCurrentPodcast = createSelector(
+  selector,
+  podcasts => podcasts.current,
+);
 
 export default podcastsSlice.reducer;

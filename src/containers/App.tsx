@@ -1,19 +1,16 @@
 import React from 'react';
 import {View, Text, StyleSheet, FlatList} from 'react-native';
+import {useAppSelector} from '../hooks';
+import {selectCurrentPodcast} from '../lib/store/features/podcasts';
 import Searchbar from './Searchbar';
+import {Episode} from '../lib/types/podcast';
 
 /*
-1) Textbox for the Podcast URL
-2) Button to get the pod casts
-3) List to show the pod casts
+
 4) Click to see info of pod cast
 5) Play a pod cast
-*/
 
-interface ItemIFace {
-  id: string;
-  title: string;
-}
+*/
 
 const Item = ({title}: {title: string}) => (
   <View>
@@ -22,22 +19,10 @@ const Item = ({title}: {title: string}) => (
 );
 
 function App() {
-  const DATA: ItemIFace[] = [
-    {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      title: 'First pod cast',
-    },
-    {
-      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-      title: 'Second pod cast',
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      title: 'Third pod cast',
-    },
-  ];
+  // const podcastsV1 = useSelector<RootState>(state => state.podcasts.current);
+  const podcast = useAppSelector(selectCurrentPodcast);
 
-  const renderItem = ({item}: {item: ItemIFace}) => <Item title={item.title} />;
+  const renderItem = ({item}: {item: Episode}) => <Item title={item.title} />;
 
   return (
     <View
@@ -49,11 +34,13 @@ function App() {
       <Searchbar />
 
       <View style={styles.mb10}>
-        <FlatList
-          data={DATA}
-          renderItem={renderItem}
-          keyExtractor={item => item.id}
-        />
+        {podcast?.episodes && (
+          <FlatList
+            data={podcast?.episodes}
+            renderItem={renderItem}
+            keyExtractor={item => item.id}
+          />
+        )}
       </View>
     </View>
   );
