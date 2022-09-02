@@ -6,8 +6,9 @@ import {screens} from '../lib/constants';
 /*
 
 For next time
- 4) Click to see info of pod cast
- 5) Play a pod cast
+ 5) Play a pod cast - see: https://react-native-track-player.js.org/docs/basics/getting-started
+  - working on playing a MP3 - https://react-native-track-player.js.org/docs/basics/getting-started#controlling-the-player
+  - build the app and see if react-native-track-player has UI for controlling MP3 playback
  6) On episode screen, click to see next episode
  *) Android deployment - build APK
  *) Setup OTA (Over The Air) for updates
