@@ -8,6 +8,8 @@ import {screens} from '../lib/constants';
 For next time
  4) Click to see info of pod cast
  5) Play a pod cast
+ 6) On episode screen, click to see next episode
+ *) Android deployment - build APK
  *) Setup OTA (Over The Air) for updates
  *) maybe look at absolute paths (https://betterprogramming.pub/use-absolute-paths-with-react-51ced66f119f)
 
